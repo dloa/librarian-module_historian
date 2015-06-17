@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  address: MyText
+  btc_tip_address: MyText
+  bit_msg_address: MyText
+
+two:
+  name: MyString
+  address: MyText
+  btc_tip_address: MyText
+  bit_msg_address: MyText

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blocktech</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div>
+  <%=link_to "historians", historians_path%> | <%=link_to "history records", history_records_path%> |
+  <%=link_to "history record datapoints", historians_path%> | <%=link_to "hitory record results", historians_path%>  
+</div>
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @historian.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @historian.address %>
+</p>
+
+<p>
+  <strong>Btc tip address:</strong>
+  <%= @historian.btc_tip_address %>
+</p>
+
+<p>
+  <strong>Bit msg address:</strong>
+  <%= @historian.bit_msg_address %>
+</p>
+
+<%= link_to 'Edit', edit_historian_path(@historian) %> |
+<%= link_to 'Back', historians_path %>

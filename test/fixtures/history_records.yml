@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyText
+  http_api_address: MyText
+  fields_to_store: MyText
+  rate: MyString
+  public: false
+  historian_id: 1
+
+two:
+  title: MyText
+  http_api_address: MyText
+  fields_to_store: MyText
+  rate: MyString
+  public: false
+  historian_id: 1

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Historians</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Btc tip address</th>
+      <th>Bit msg address</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @historians.each do |historian| %>
+      <tr>
+        <td><%= historian.name %></td>
+        <td><%= historian.address %></td>
+        <td><%= historian.btc_tip_address %></td>
+        <td><%= historian.bit_msg_address %></td>
+        <td><%= link_to 'Show', historian %></td>
+        <td><%= link_to 'Edit', edit_historian_path(historian) %></td>
+        <td><%= link_to 'Destroy', historian, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Historian', new_historian_path %>

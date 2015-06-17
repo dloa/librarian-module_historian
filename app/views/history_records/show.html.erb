@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @history_record.title %>
+</p>
+
+<p>
+  <strong>Http api address:</strong>
+  <%= @history_record.http_api_address %>
+</p>
+
+<p>
+  <strong>Fields to store:</strong>
+  <%= @history_record.fields_to_store %>
+</p>
+
+<p>
+  <strong>Rate:</strong>
+  <%= @history_record.rate %>
+</p>
+
+<p>
+  <strong>Public:</strong>
+  <%= @history_record.public %>
+</p>
+
+<p>
+  <strong>Historian:</strong>
+  <%= @history_record.historian_id %>
+</p>
+
+<%= link_to 'Edit', edit_history_record_path(@history_record) %> |
+<%= link_to 'Back', history_records_path %>

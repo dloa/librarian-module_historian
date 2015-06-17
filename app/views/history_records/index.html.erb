@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing History Records</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Http api address</th>
+      <th>Fields to store</th>
+      <th>Rate</th>
+      <th>Public</th>
+      <th>Historian</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @history_records.each do |history_record| %>
+      <tr>
+        <td><%= history_record.title %></td>
+        <td><%= history_record.http_api_address %></td>
+        <td><%= history_record.fields_to_store %></td>
+        <td><%= history_record.rate %></td>
+        <td><%= history_record.public %></td>
+        <td><%= history_record.historian_id %></td>
+        <td><%= link_to 'Show', history_record %></td>
+        <td><%= link_to 'Edit', edit_history_record_path(history_record) %></td>
+        <td><%= link_to 'Destroy', history_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New History record', new_history_record_path %>
