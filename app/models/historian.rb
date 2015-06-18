@@ -3,6 +3,11 @@ class Historian < ActiveRecord::Base
   has_many :history_records
   #####
 
+  ### Validations ###
+  validates :name, :address, :txn_id, :bit_msg_address, presence: true
+  validates :txn_id, uniqueness: true
+  ####
+
   #Object Methods, Initialize Rpc calls and send transition with tx-comment
   def send_to_florincoin
     florincoin_client = FlorincoinRPC.new()
