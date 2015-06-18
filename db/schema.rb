@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616100225) do
+ActiveRecord::Schema.define(version: 20150617110804) do
 
   create_table "historians", force: :cascade do |t|
     t.string   "name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150616100225) do
     t.text     "bit_msg_address"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.text     "txn_id"
   end
 
   create_table "history_records", force: :cascade do |t|
