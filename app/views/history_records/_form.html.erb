@@ -1,41 +1,66 @@
-<%= form_for(@history_record) do |f| %>
-  <% if @history_record.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@history_record.errors.count, "error") %> prohibited this history_record from being saved:</h2>
+<%= form_for @history_record, :html => { :class => "form-horizontal history_record" } do |f| %>
 
-      <ul>
-      <% @history_record.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @history_record.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@history_record.errors.count, "error") %> prohibited this history_record from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @history_record.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_area :title %>
+  <div class="control-group">
+    <%= f.label :title, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, :class => 'form-control' %>
+    </div>
+    <%= error_span(@history_record[:title]) %>
   </div>
-  <div class="field">
-    <%= f.label :http_api_address %><br>
-    <%= f.text_area :http_api_address %>
+  <div class="control-group">
+    <%= f.label :http_api_address, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :http_api_address, :class => 'form-control' %>
+    </div>
+    <%= error_span(@history_record[:http_api_address]) %>
   </div>
-  <div class="field">
-    <%= f.label :fields_to_store %><br>
-    <%= f.text_area :fields_to_store %>
+  <div class="control-group">
+    <%= f.label :fields_to_store, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :fields_to_store, :class => 'form-control' %>
+    </div>
+    <%= error_span(@history_record[:fields_to_store]) %>
   </div>
-  <div class="field">
-    <%= f.label :rate %><br>
-    <%= f.text_field :rate %>
+  <div class="control-group">
+    <%= f.label :rate, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :rate, :class => 'form-control' %>
+    </div>
+    <%= error_span(@history_record[:rate]) %>
   </div>
-  <div class="field">
-    <%= f.label :public %><br>
-    <%= f.check_box :public %>
+  <div class="control-group">
+    <%= f.label :public, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :public, :class => 'form-control' %>
+    </div>
+    <%= error_span(@history_record[:public]) %>
   </div>
-  <div class="field">
-    <%= f.label :historian_id %><br>
-    <%= f.collection_select :historian_id , Historian.all, :id, :id%>
+  <div class="control-group">
+    <%= f.label :historian_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :historian_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@history_record[:historian_id]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            history_records_path, :class => 'btn btn-default' %>
+
 <% end %>

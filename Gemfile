@@ -43,3 +43,8 @@ group :development, :test do
   gem 'spring'
 end
 
+
+
+## Added Gems
+# bootstrap for look and fill
+gem "twitter-bootstrap-rails"

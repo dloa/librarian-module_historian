@@ -1,33 +1,42 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Historians</h1>
-
-<table>
+<%- model_class = Historian -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Address</th>
-      <th>Btc tip address</th>
-      <th>Bit msg address</th>
-      <th colspan="3"></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:address) %></th>
+      <th><%= model_class.human_attribute_name(:btc_tip_address) %></th>
+      <th><%= model_class.human_attribute_name(:bit_msg_address) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @historians.each do |historian| %>
       <tr>
+        <td><%= link_to historian.id, historian_path(historian) %></td>
         <td><%= historian.name %></td>
         <td><%= historian.address %></td>
         <td><%= historian.btc_tip_address %></td>
         <td><%= historian.bit_msg_address %></td>
-        <td><%= link_to 'Show', historian %></td>
-        <td><%= link_to 'Edit', edit_historian_path(historian) %></td>
-        <td><%= link_to 'Destroy', historian, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%=l historian.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_historian_path(historian), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      historian_path(historian),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Historian', new_historian_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_historian_path,
+            :class => 'btn btn-primary' %>

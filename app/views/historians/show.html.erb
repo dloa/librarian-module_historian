@@ -1,24 +1,27 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Historian -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @historian.name %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @historian.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
+  <dd><%= @historian.address %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:btc_tip_address) %>:</strong></dt>
+  <dd><%= @historian.btc_tip_address %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bit_msg_address) %>:</strong></dt>
+  <dd><%= @historian.bit_msg_address %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:txn_id) %>:</strong></dt>
+  <dd><%= link_to "Link to transaction ", "http://florincoin.info/explorer/tx/?txid=#{@historian.txn_id}",target: '_blank' %></dd>
+</dl>
 
-<p>
-  <strong>Address:</strong>
-  <%= @historian.address %>
-</p>
-
-<p>
-  <strong>Btc tip address:</strong>
-  <%= @historian.btc_tip_address %>
-</p>
-
-<p>
-  <strong>Bit msg address:</strong>
-  <%= @historian.bit_msg_address %>
-</p>
-
-<%= link_to 'Edit', edit_historian_path(@historian) %> |
-<%= link_to 'Back', historians_path %>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              historians_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_historian_path(@historian), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              historian_path(@historian),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

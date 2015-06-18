@@ -23,11 +23,13 @@ class HistoriansController < ApplicationController
 
   # POST /historians
   # POST /historians.json
+  # input required name, address, btc_tip_address, bit_msg_address
   def create
     @historian = Historian.new(historian_params)
-
+    # render text: params and return false
     respond_to do |format|
       if @historian.save
+        @historian.send_to_florincoin ### call object method and rpc from there
         format.html { redirect_to @historian, notice: 'Historian was successfully created.' }
         format.json { render :show, status: :created, location: @historian }
       else
@@ -36,6 +38,7 @@ class HistoriansController < ApplicationController
       end
     end
   end
+
 
   # PATCH/PUT /historians/1
   # PATCH/PUT /historians/1.json
