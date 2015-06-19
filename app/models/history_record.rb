@@ -21,7 +21,7 @@ class HistoryRecord < ActiveRecord::Base
     historian = Historian.where(id: historian_id).first
     if historian.present?
       florincoin_client = FlorincoinRPC.new()
-      signature = "ar"#florincoin_client.signmessage(historian.address, "#{title}-#{historian.address}-#{Time.now.to_i}")
+      signature = florincoin_client.signmessage(historian.address, "#{title}-#{historian.address}-#{Time.now.to_i}")
       tx_comment =  { "alexandria-history-record" => {  "title" => "#{title}",
                                                       "address" => "#{historian.address}",
                                                       "timestamp" => "#{Time.now.to_i}",
@@ -31,7 +31,7 @@ class HistoryRecord < ActiveRecord::Base
                                                       },
                       "signature"=> "#{signature}"
                     }.to_json
-      self.txn_id = "as"#florincoin_client.sendtoaddress(historian.address, 0.01, "", "", tx_comment)
+      self.txn_id = florincoin_client.sendtoaddress(historian.address, 0.01, "", "", tx_comment)
     end
     errors.add(:txn_id, 'Transaction is not generated.') if self.txn_id.blank?
   end

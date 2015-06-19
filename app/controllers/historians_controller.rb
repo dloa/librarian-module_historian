@@ -1,5 +1,6 @@
 class HistoriansController < ApplicationController
   before_action :set_historian, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :js
 
   # GET /historians
   # GET /historians.json
@@ -27,14 +28,10 @@ class HistoriansController < ApplicationController
   def create
     @historian = Historian.new(historian_params)
     @historian.send_to_florincoin
-    respond_to do |format|
-      if @historian.save
-        format.html { redirect_to @historian, notice: 'Historian was successfully created.' }
-        format.json { render :show, status: :created, location: @historian }
-      else
-        format.html { render :new }
-        format.json { render json: @historian.errors, status: :unprocessable_entity }
-      end
+    if @historian.save
+      redirect_to @historian, notice: 'Historian was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -42,14 +39,10 @@ class HistoriansController < ApplicationController
   # PATCH/PUT /historians/1
   # PATCH/PUT /historians/1.json
   def update
-    respond_to do |format|
-      if @historian.update(historian_params)
-        format.html { redirect_to @historian, notice: 'Historian was successfully updated.' }
-        format.json { render :show, status: :ok, location: @historian }
-      else
-        format.html { render :edit }
-        format.json { render json: @historian.errors, status: :unprocessable_entity }
-      end
+    if @historian.update(historian_params)
+      redirect_to @historian, notice: 'Historian was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -57,10 +50,7 @@ class HistoriansController < ApplicationController
   # DELETE /historians/1.json
   def destroy
     @historian.destroy
-    respond_to do |format|
-      format.html { redirect_to historians_url, notice: 'Historian was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to historians_url, notice: 'Historian was successfully destroyed.'
   end
 
   private

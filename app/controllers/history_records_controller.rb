@@ -1,5 +1,6 @@
 class HistoryRecordsController < ApplicationController
   before_action :set_history_record, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :js
 
   # GET /history_records
   # GET /history_records.json
@@ -26,28 +27,20 @@ class HistoryRecordsController < ApplicationController
   def create
     @history_record = HistoryRecord.new(history_record_params)
     @history_record.send_to_florincoin
-    respond_to do |format|
-      if @history_record.save
-        format.html { redirect_to @history_record, notice: 'History record was successfully created.' }
-        format.json { render :show, status: :created, location: @history_record }
-      else
-        format.html { render :new }
-        format.json { render json: @history_record.errors, status: :unprocessable_entity }
-      end
+    if @history_record.save
+      redirect_to @history_record, notice: 'History record was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /history_records/1
   # PATCH/PUT /history_records/1.json
   def update
-    respond_to do |format|
-      if @history_record.update(history_record_params)
-        format.html { redirect_to @history_record, notice: 'History record was successfully updated.' }
-        format.json { render :show, status: :ok, location: @history_record }
-      else
-        format.html { render :edit }
-        format.json { render json: @history_record.errors, status: :unprocessable_entity }
-      end
+    if @history_record.update(history_record_params)
+      redirect_to @history_record, notice: 'History record was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -55,10 +48,7 @@ class HistoryRecordsController < ApplicationController
   # DELETE /history_records/1.json
   def destroy
     @history_record.destroy
-    respond_to do |format|
-      format.html { redirect_to history_records_url, notice: 'History record was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to history_records_url, notice: 'History record was successfully destroyed.'
   end
 
   private
