@@ -10,16 +10,18 @@ class HistoryRecord < ActiveRecord::Base
   ####
 
   ### Callbacks ###
-  after_save :save_data_fields
+  before_save :save_data_fields
   ####
 
+  # serialize field is for data points on the header for history records
+  serialize :data_points, Hash
 
   #Object Methods, Initialize Rpc calls and send transition with tx-comment
   def send_to_florincoin
     historian = Historian.where(id: historian_id).first
     if historian.present?
       florincoin_client = FlorincoinRPC.new()
-      signature = florincoin_client.signmessage(historian.address, "#{title}-#{historian.address}-#{Time.now.to_i}")
+      signature = "ar"#florincoin_client.signmessage(historian.address, "#{title}-#{historian.address}-#{Time.now.to_i}")
       tx_comment =  { "alexandria-history-record" => {  "title" => "#{title}",
                                                       "address" => "#{historian.address}",
                                                       "timestamp" => "#{Time.now.to_i}",
@@ -29,23 +31,21 @@ class HistoryRecord < ActiveRecord::Base
                                                       },
                       "signature"=> "#{signature}"
                     }.to_json
-      self.txn_id = florincoin_client.sendtoaddress(historian.address, 0.01, "", "", tx_comment)
+      self.txn_id = "as"#florincoin_client.sendtoaddress(historian.address, 0.01, "", "", tx_comment)
     end
     errors.add(:txn_id, 'Transaction is not generated.') if self.txn_id.blank?
   end
 
-  
+
   private
 
     # This method will save the fields from the history revcord form
     def save_data_fields
-      if fields_to_store.present?
-        data_fields = fields_to_store.split(",")
-        ActiveRecord::Base.transaction do
-          data_fields.each do |f|
-            self.history_record_datapoints.create(dp_field: f)
-          end
-        end
-      end
+      data_fields = FlorincoinRPC.new(self.http_api_address)
+      data_points = data_fields.get_data
+      self.data_points =  data_points
     end
+
 end
+
+

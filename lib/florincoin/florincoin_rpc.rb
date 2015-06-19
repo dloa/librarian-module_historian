@@ -26,6 +26,13 @@ class FlorincoinRPC
     result = response.blank? ? "{}" : response
   end
 
+  def get_data
+    params = { :limit => 10, :page => 3 }
+    @uri.query = URI.encode_www_form(params)
+    res = Net::HTTP.get_response(@uri)
+    JSON.parse(res.body) if res.is_a?(Net::HTTPSuccess)
+  end
+
   class JSONRPCError < RuntimeError; end
 end
 
