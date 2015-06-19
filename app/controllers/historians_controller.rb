@@ -26,10 +26,8 @@ class HistoriansController < ApplicationController
   # input required name, address, btc_tip_address, bit_msg_address
   def create
     @historian = Historian.new(historian_params)
-    # render text: params and return false
     respond_to do |format|
       if @historian.save
-        @historian.send_to_florincoin ### call object method and rpc from there
         format.html { redirect_to @historian, notice: 'Historian was successfully created.' }
         format.json { render :show, status: :created, location: @historian }
       else
@@ -72,6 +70,6 @@ class HistoriansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def historian_params
-      params.require(:historian).permit(:name, :address, :btc_tip_address, :bit_msg_address)
+      params.require(:historian).permit(:name, :address, :btc_tip_address, :bit_msg_address, :txn_id)
     end
 end

@@ -22,7 +22,8 @@ class FlorincoinRPC
     request.basic_auth @uri.user, @uri.password
     request.content_type = 'application/json'
     request.body = post_body
-    http.request(request).body
+    response = http.request(request).body
+    result = response.blank? ? "{}" : response
   end
 
   class JSONRPCError < RuntimeError; end
