@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>History record:</strong>
+  <%= @history_record_datapoint.history_record_id %>
+</p>
+
+<p>
+  <strong>Dp field:</strong>
+  <%= @history_record_datapoint.dp_field %>
+</p>
+
+<p>
+  <strong>Dp value:</strong>
+  <%= @history_record_datapoint.dp_value %>
+</p>
+
+<%= link_to 'Edit', edit_history_record_datapoint_path(@history_record_datapoint) %> |
+<%= link_to 'Back', history_record_datapoints_path %>

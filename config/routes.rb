@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :history_record_datapoints
   resources :history_records
   resources :historians
   # The priority is based upon order of creation: first created -> highest priority.

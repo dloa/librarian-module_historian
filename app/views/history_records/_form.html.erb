@@ -32,7 +32,7 @@
     <div class="control-group">
       <%= f.label :fields_to_store, :class => 'control-label' %>
       <div class="controls">
-        <%= f.text_field :fields_to_store, :class => 'form-control' %>
+        <%= f.text_field :fields_to_store, value: '24h_avg, ask, bid, last, timestamp, volume_btc, volume_percent', :class => 'form-control' %>
       </div>
       <%= error_span(@history_record[:fields_to_store]) %>
     </div>
@@ -46,7 +46,8 @@
     <div class="control-group">
       <%= f.label :public, :class => 'control-label' %>
       <div class="controls">
-        <%= f.text_field :public, :class => 'form-control' %>
+        <%#= f.text_field :public, :class => 'form-control' %>
+        <%= f.check_box :public %>
       </div>
       <%= error_span(@history_record[:public]) %>
     </div>

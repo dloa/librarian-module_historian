@@ -1,0 +1,29 @@
+<%= form_for(@history_record_datapoint) do |f| %>
+  <% if @history_record_datapoint.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@history_record_datapoint.errors.count, "error") %> prohibited this history_record_datapoint from being saved:</h2>
+
+      <ul>
+      <% @history_record_datapoint.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :history_record_id %><br>
+    <%= f.number_field :history_record_id %>
+  </div>
+  <div class="field">
+    <%= f.label :dp_field %><br>
+    <%= f.text_field :dp_field %>
+  </div>
+  <div class="field">
+    <%= f.label :dp_value %><br>
+    <%= f.text_field :dp_value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

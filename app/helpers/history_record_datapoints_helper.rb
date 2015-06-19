@@ -1,0 +1,2 @@
+module HistoryRecordDatapointsHelper
+end

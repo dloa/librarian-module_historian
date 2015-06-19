@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  history_record_id: 1
+  dp_field: MyString
+  dp_value: MyString
+
+two:
+  history_record_id: 1
+  dp_field: MyString
+  dp_value: MyString
