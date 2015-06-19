@@ -25,7 +25,7 @@
     <div class="control-group">
       <%= f.label :http_api_address, :class => 'control-label' %>
       <div class="controls">
-        <%= f.text_field :http_api_address, :class => 'form-control' %>
+        <%= f.text_field :http_api_address, value: 'https://api.bitcoinaverage.com/ticker/global/USD/', :class => 'form-control' %>
       </div>
       <%= error_span(@history_record[:http_api_address]) %>
     </div>

@@ -17,11 +17,21 @@
   <dt><strong><%= model_class.human_attribute_name(:historian_id) %>:</strong></dt>
   <dd><%= @history_record.historian_id %></dd>
 </dl>
-<dl><dt> Result </dt>
-  <%- @history_record.data_points.each do |key, value| %>
-  <dd><strong><%= key %></strong>: <%= value %></dd>
-  <%end%>
-</dl>
+<%if @history_record.data_points.present?%>
+  <p>
+    <div class="page-header">
+      <h1> Result</h1>
+    </div>
+    <dl class="dl-horizontal">
+      <%- @history_record.data_points.each do |key, value| %>
+        <dd><strong><%= key %></strong>: <%= value %></dd>
+      <%end%>
+      <dd>
+        <%= link_to "Send History Data Point", send_data_points_path(@history_record), :class => 'btn btn-primary'  %>
+      </dd>
+    </dl>
+  </p>
+<%end%>
 <%= link_to t('.back', :default => t("helpers.links.back")),
               history_records_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),

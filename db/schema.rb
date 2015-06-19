@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619121248) do
+ActiveRecord::Schema.define(version: 20150619155055) do
 
   create_table "historians", force: :cascade do |t|
     t.string   "name"
@@ -38,10 +38,11 @@ ActiveRecord::Schema.define(version: 20150619121248) do
     t.string   "rate"
     t.boolean  "public"
     t.integer  "historian_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.text     "txn_id"
     t.text     "data_points"
+    t.text     "data_point_txn_id"
   end
 
 end

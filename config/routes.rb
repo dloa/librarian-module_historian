@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :history_records
   resources :historians
+  get 'send_data_points/:id' => 'history_records#send_data_points', as: :send_data_points
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,5 +1,5 @@
 class HistoryRecordsController < ApplicationController
-  before_action :set_history_record, only: [:show, :edit, :update, :destroy]
+  before_action :set_history_record, only: [:show, :edit, :update, :destroy, :send_data_points]
   respond_to :html, :js
 
   # GET /history_records
@@ -49,6 +49,13 @@ class HistoryRecordsController < ApplicationController
   def destroy
     @history_record.destroy
     redirect_to history_records_url, notice: 'History record was successfully destroyed.'
+  end
+
+  ## GET /send_data_points
+  ## GET /history_records/1.json
+  def send_data_points  
+    @history_record.send_to_florincoin(true)
+    redirect_to @history_record, notice: 'Data points sent successfully.'
   end
 
   private
