@@ -26,6 +26,7 @@ class HistoriansController < ApplicationController
   # input required name, address, btc_tip_address, bit_msg_address
   def create
     @historian = Historian.new(historian_params)
+    @historian.send_to_florincoin
     respond_to do |format|
       if @historian.save
         format.html { redirect_to @historian, notice: 'Historian was successfully created.' }

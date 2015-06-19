@@ -25,7 +25,7 @@ class HistoryRecordsController < ApplicationController
   # POST /history_records.json
   def create
     @history_record = HistoryRecord.new(history_record_params)
-
+    @history_record.send_to_florincoin
     respond_to do |format|
       if @history_record.save
         format.html { redirect_to @history_record, notice: 'History record was successfully created.' }
