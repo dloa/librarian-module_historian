@@ -1,0 +1,36 @@
+= form_for @historian, :html => { :class => "form-horizontal historian" } do |f|
+  - if @historian.errors.any?
+    #error_expl.panel.panel-danger
+      .panel-heading
+        %h3.panel-title
+          = pluralize(@historian.errors.count, "error")
+          prohibited this historian from being saved:
+      .panel-body
+        %ul
+          - @historian.errors.full_messages.each do |msg|
+            %li= msg
+  %p
+  .control-group
+    = f.label :name, :class => 'control-label'
+    .controls
+      = f.text_field :name, :class => 'form-control'
+    = error_span(@historian[:name])
+  .control-group
+    = f.label :address, :class => 'control-label'
+    .controls
+      = f.text_field :address, value: 'F9zvg3nsA26ihoWW7Gyyu5kfVc7CS5YDYC', :class => 'form-control'
+    = error_span(@historian[:address])
+  .control-group
+    = f.label :btc_tip_address, :class => 'control-label'
+    .controls
+      = f.text_field :btc_tip_address, :class => 'form-control'
+    = error_span(@historian[:btc_tip_address])
+  .control-group
+    = f.label :bit_msg_address, :class => 'control-label'
+    .controls
+      = f.text_field :bit_msg_address, value: 'F9zvg3nsA26ihoWW7Gyyu5kfVc7CS5YDYC', :class => 'form-control'
+    = error_span(@historian[:bit_msg_address])
+  .actions
+    = f.submit nil, :class => 'btn btn-primary'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), |
+      historians_path, :class => 'btn btn-default'                 |

@@ -1,0 +1,26 @@
+- model_class = Historian
+.page-header
+  %h1= t '.title', :default => model_class.model_name.human.pluralize.titleize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:address)
+      %th= model_class.human_attribute_name(:btc_tip_address)
+      %th= model_class.human_attribute_name(:bit_msg_address)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @historians.each do |historian|
+      %tr
+        %td= link_to historian.id, historian_path(historian)
+        %td= historian.name
+        %td= historian.address
+        %td= historian.btc_tip_address
+        %td= historian.bit_msg_address
+        %td= l historian.created_at
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_historian_path(historian), :class => 'btn btn-default btn-xs'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), historian_path(historian), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+= link_to t('.new', :default => t("helpers.links.new")), new_historian_path, :class => 'btn btn-primary'

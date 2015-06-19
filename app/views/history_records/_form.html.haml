@@ -1,0 +1,45 @@
+= form_for @history_record, :html => { :class => "form-horizontal history_record" } do |f|
+  - if @history_record.errors.any?
+    #error_expl.panel.panel-danger
+      .panel-heading
+        %h3.panel-title
+          = pluralize(@history_record.errors.count, "error")
+          prohibited this history_record from being saved:
+      .panel-body
+        %ul
+          - @history_record.errors.full_messages.each do |msg|
+            %li= msg
+  %p
+  .control-group
+    = f.label :title, :class => 'control-label'
+    .controls
+      = f.text_field :title, :class => 'form-control'
+    = error_span(@history_record[:title])
+  .control-group
+    = f.label :http_api_address, :class => 'control-label'
+    .controls
+      = f.text_field :http_api_address, value: 'https://api.bitcoinaverage.com/ticker/global/USD/', :class => 'form-control'
+    = error_span(@history_record[:http_api_address])
+  .control-group
+    = f.label :fields_to_store, :class => 'control-label'
+    .controls
+      = f.text_field :fields_to_store, value: '24h_avg, ask, bid, last, timestamp, volume_btc, volume_percent', :class => 'form-control'
+    = error_span(@history_record[:fields_to_store])
+  .control-group
+    = f.label :rate, :class => 'control-label'
+    .controls
+      = f.text_field :rate, :class => 'form-control'
+    = error_span(@history_record[:rate])
+  .control-group
+    = f.label :public, :class => 'control-label'
+    .controls
+      = f.check_box :public
+    = error_span(@history_record[:public])
+  .control-group
+    = f.label :historian_id, :class => 'control-label'
+    .controls
+      = f.collection_select :historian_id, Historian.all,:id,:address, prompt: "Select Historian Address", :class => 'form-control'
+    = error_span(@history_record[:historian_id])
+  = f.submit nil, :class => 'btn btn-primary'
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), |
+    history_records_path, :class => 'btn btn-default'            |

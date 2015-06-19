@@ -52,11 +52,12 @@ class HistoryRecord < ActiveRecord::Base
 
   # This method will generate Transaction comment for history records data points
   def get_hr_data_point_tx_comment(historian, signature)
+    datapint_hash = self.data_points.except("timestamp")
     { "alexandria-history-record-datapoint"=> { "title" => "#{title}",
               "address" => "#{historian.address}",
               "timestamp" => "#{Time.now.to_i}",
               "api" => "#{http_api_address}",
-            }.merge(self.data_points),
+            }.merge(datapint_hash),
         "signature"=> "#{signature}"
     }.to_json
   end
