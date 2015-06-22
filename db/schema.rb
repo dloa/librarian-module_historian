@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619155055) do
+ActiveRecord::Schema.define(version: 20150622095400) do
 
   create_table "historians", force: :cascade do |t|
     t.string   "name"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20150619155055) do
     t.text     "txn_id"
     t.text     "data_points"
     t.text     "data_point_txn_id"
+    t.datetime "scheduled_date"
+    t.boolean  "schedule_status"
   end
 
 end

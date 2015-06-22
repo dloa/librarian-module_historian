@@ -21,7 +21,7 @@
     %strong
       = model_class.human_attribute_name(:rate)
       \:
-  %dd= @history_record.rate
+  %dd= HistoryRecord::RATES["#{@history_record.rate}"]
   %dt
     %strong
       = model_class.human_attribute_name(:public)
