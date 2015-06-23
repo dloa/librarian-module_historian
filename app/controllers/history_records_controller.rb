@@ -5,7 +5,7 @@ class HistoryRecordsController < ApplicationController
   # GET /history_records
   # GET /history_records.json
   def index
-    @history_records = HistoryRecord.all
+    @history_records = HistoryRecord.all.includes(:historian)
   end
 
   # GET /history_records/1
@@ -55,9 +55,11 @@ class HistoryRecordsController < ApplicationController
 
   ## GET /send_data_points
   ## GET /history_records/1.json
-  def send_data_points  
-    @history_record.send_to_florincoin(true)
-    redirect_to @history_record, notice: 'Data points sent successfully.'
+  ### Start and Stop scheduler ##
+  def send_data_points
+    @history_record.update(history_record_params)
+    @history_record.update_schedule_status
+    redirect_to history_records_path, notice: "Scheduler #{params[:status]} for scheduled rate."
   end
 
   private
