@@ -27,9 +27,17 @@ class HistoryRecord < ActiveRecord::Base
         tx_comment = get_hr_tx_comment(historian, signature)
         self.txn_id = send_message(florincoin_client, historian, tx_comment)
       else
-        tx_comment = get_hr_data_point_tx_comment(historian, signature)
-        data_point_txn_id = send_message(florincoin_client, historian, tx_comment)
-        self.save_data_fields(data_point_txn_id)
+        dp = self.save_data_fields()
+        # Data points will be sent if they are available
+        if dp.present?
+          data_to_send = dp.data_points.except("timestamp")
+          # This will set the tx_comment
+          tx_comment = get_hr_data_point_tx_comment(historian, signature, data_to_send)
+          # This will send the tx comment to florin coin and get the datapoint txn id
+          data_point_txn_id = send_message(florincoin_client, historian, tx_comment)
+          # This will save the data_point_txn_id to data points
+          dp.update(txn_id: data_point_txn_id)
+        end
       end
     end
     errors.add(:txn_id, 'Transaction is not generated.') if self.txn_id.blank?
@@ -53,13 +61,12 @@ class HistoryRecord < ActiveRecord::Base
   end
 
   # This method will generate Transaction comment for history records data points
-  def get_hr_data_point_tx_comment(historian, signature)
-    datapint_hash = self.data_points.except("timestamp")
+  def get_hr_data_point_tx_comment(historian, signature, data_points)
     { "alexandria-history-record-datapoint"=> { "title" => "#{title}",
               "address" => "#{historian.address}",
               "timestamp" => "#{Time.now.to_i}",
               "api" => "#{http_api_address}",
-            }.merge(datapint_hash),
+            }.merge(data_points),
         "signature"=> "#{signature}"
     }.to_json
   end
@@ -85,10 +92,10 @@ class HistoryRecord < ActiveRecord::Base
   end
 
   ### Save data points inside HrDataPoints ###
-  def save_data_fields(txn_id=nil)
+  def save_data_fields()
     data_fields = FlorincoinRPC.new(self.http_api_address)
     data_points = data_fields.get_data
-    self.hr_data_points.create(data_points: data_points, txn_id: txn_id)
+    dp = self.hr_data_points.create(data_points: data_points)
   end
 end
 
